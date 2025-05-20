@@ -23,7 +23,7 @@ public class ColaboradorDao {
         boolean usuarioInsertado = usuarioDao.insertar(colaborador);
 
         if (usuarioInsertado) {
-            String sql = "INSERT INTO trabajador (id_usuario, id_cliente) VALUES (?, ?)";
+            String sql = "INSERT INTO colaborador (id_usuario, tipo_colaborador) VALUES (?, ?)";
             try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 stmt.setInt(1, colaborador.getIdUsuario());
                 stmt.setString(2, colaborador.getTipoColaborador());
@@ -36,8 +36,26 @@ public class ColaboradorDao {
         return false;
     }
 
+    public boolean actualizar(Colaborador colaborador) throws SQLException {
+        UsuarioDao usuarioDao = new UsuarioDao();
+        boolean colaboradorActualizado = usuarioDao.actualizar(colaborador);
+
+        if (colaboradorActualizado) {
+            String sql = "UPDATE colaborador SET tipo_colaborador = ? WHERE id_usuario = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setString(1, colaborador.getTipoColaborador());
+                stmt.setInt(2, colaborador.getIdUsuario());
+                stmt.executeUpdate();
+                return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
     public Colaborador buscarPorIdUsuario(int idUsuario) {
-        String sql = "SELECT u.* FROM usuario u "
+        String sql = "SELECT u.*, c.tipo_colaborador FROM usuario u "
                 + "JOIN colaborador c ON u.id_usuario = c.id_usuario "
                 + "WHERE u.id_usuario = ?";
 
@@ -56,6 +74,7 @@ public class ColaboradorDao {
                     colaborador.setCorreo(rs.getString("correo"));
                     colaborador.setFechaRegistro(rs.getDate("fecha_registro"));
                     colaborador.setEstado(rs.getBoolean("estado"));
+
                     colaborador.setTipoColaborador(rs.getString("tipo_colaborador"));
 
                     return colaborador;
@@ -69,7 +88,7 @@ public class ColaboradorDao {
 
     public List<Colaborador> listarTodos() {
         List<Colaborador> lista = new ArrayList<>();
-        String sql = "SELECT u.* c.tipo_colaborador "
+        String sql = "SELECT u.*, c.tipo_colaborador "
                 + "FROM usuario u "
                 + "JOIN colaborador c ON u.id_usuario = c.id_usuario";
 
@@ -98,7 +117,5 @@ public class ColaboradorDao {
 
         return lista;
     }
-    
-   
 
 }

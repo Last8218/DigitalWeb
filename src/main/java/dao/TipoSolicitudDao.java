@@ -58,8 +58,7 @@ public class TipoSolicitudDao {
         }
         return lista;
     }
-    
-    
+
     // BUSCAR USUARIO POR ID
     public TipoSolicitud buscarPorId(int id) {
         String sql = "SELECT * FROM tipo_solicitud WHERE id_tipo_solicitud=?";
@@ -79,8 +78,7 @@ public class TipoSolicitudDao {
         }
         return null;
     }
-    
-    
+
     // ACTUALIZAR USUARIO
     public boolean actualizar(TipoSolicitud tipoSolicitud) {
         String sql = "UPDATE tipo_solicitud SET nombre=?, descripcion=?, estado=?  WHERE id_tipo_solicitud=?";

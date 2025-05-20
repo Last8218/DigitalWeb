@@ -1,6 +1,5 @@
 package dao;
 
-
 import com.last.digital.resources.config.ConnectionDB;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -22,7 +21,7 @@ public class AtencionDao {
         conn = ConnectionDB.getConexion();
     }
 
-    public boolean insertar(Atencion atencion) {
+    public boolean insertarAtencion(Atencion atencion) {
         String sql = "INSERT INTO atencion (id_colaborador, id_solicitud, hora_inicio, hora_fin, descripcion) "
                 + "VALUES (?, ?, ?, ?, ?)";
 
@@ -63,12 +62,11 @@ public class AtencionDao {
                 atencion.setFechaHoraFin(rs.getTimestamp("hora_fin"));
                 atencion.setDescripcion(rs.getString("descripcion"));
 
-                
                 Asignacion asignacion = new Asignacion();
 
                 Colaborador colaborador = new Colaborador();
                 ColaboradorDao colaboradorDao = new ColaboradorDao();
-                colaborador = colaboradorDao.buscarPorIdUsuario(rs.getInt("id_usuario"));
+                colaborador = colaboradorDao.buscarPorIdUsuario(rs.getInt("id_colaborador"));
 
                 Solicitud solicitud = new Solicitud();
                 SolicitudDao solicitudDao = new SolicitudDao();
@@ -90,7 +88,9 @@ public class AtencionDao {
 
     public List<Atencion> listarPorColaborador(int idColaborador) {
         List<Atencion> lista = new ArrayList<>();
-        String sql = "SELECT * FROM atencion WHERE id_colaborador = ? ORDER BY hora_inicio";
+        String sql = "SELECT * FROM atencion a "
+                + "INNER JOIN asignacion ag ON a.id_colaborador = ag.id_colaborador AND a.id_solicitud = ag.id_solicitud "
+                + "WHERE ag.id_colaborador = ?";
 
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, idColaborador);
@@ -108,7 +108,87 @@ public class AtencionDao {
 
                 Colaborador colaborador = new Colaborador();
                 ColaboradorDao colaboradorDao = new ColaboradorDao();
-                colaborador = colaboradorDao.buscarPorIdUsuario(rs.getInt("id_usuario"));
+                colaborador = colaboradorDao.buscarPorIdUsuario(rs.getInt("id_colaborador"));
+
+                Solicitud solicitud = new Solicitud();
+                SolicitudDao solicitudDao = new SolicitudDao();
+                solicitud = solicitudDao.buscarPorId(rs.getInt("id_solicitud"));
+
+                asignacion.setColaborador(colaborador);
+                asignacion.setSolicitud(solicitud);
+
+                atencion.setAsignacion(asignacion);
+
+                lista.add(atencion);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
+
+    public List<Atencion> listarAtencionesPorSolicitud(int idSolicitud) {
+
+        List<Atencion> lista = new ArrayList<>();
+        String sql = "SELECT * FROM atencion a "
+                + "INNER JOIN asignacion ag ON a.id_colaborador = ag.id_colaborador AND a.id_solicitud = ag.id_solicitud "
+                + "WHERE ag.id_solicitud = ?";
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, idSolicitud);
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Atencion atencion = new Atencion();
+                atencion.setIdAtencion(rs.getInt("id_atencion"));
+                atencion.setFechaHoraInicio(rs.getTimestamp("hora_inicio"));
+                atencion.setFechaHoraFin(rs.getTimestamp("hora_fin"));
+                atencion.setDescripcion(rs.getString("descripcion"));
+
+                // Cargar asignación mínima
+                Asignacion asignacion = new Asignacion();
+
+                Colaborador colaborador = new Colaborador();
+                ColaboradorDao colaboradorDao = new ColaboradorDao();
+                colaborador = colaboradorDao.buscarPorIdUsuario(rs.getInt("id_colaborador"));
+
+                Solicitud solicitud = new Solicitud();
+                SolicitudDao solicitudDao = new SolicitudDao();
+                solicitud = solicitudDao.buscarPorId(rs.getInt("id_solicitud"));
+
+                asignacion.setColaborador(colaborador);
+                asignacion.setSolicitud(solicitud);
+
+                atencion.setAsignacion(asignacion);
+
+                lista.add(atencion);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
+
+    public List<Atencion> listarTodos() {
+        List<Atencion> lista = new ArrayList<>();
+        String sql = "SELECT * FROM atencion";
+        try (PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                Atencion atencion = new Atencion();
+                atencion.setIdAtencion(rs.getInt("id_atencion"));
+                atencion.setFechaHoraInicio(rs.getTimestamp("hora_inicio"));
+                atencion.setFechaHoraFin(rs.getTimestamp("hora_fin"));
+                atencion.setDescripcion(rs.getString("descripcion"));
+
+                // Cargar asignación mínima
+                Asignacion asignacion = new Asignacion();
+
+                Colaborador colaborador = new Colaborador();
+                ColaboradorDao colaboradorDao = new ColaboradorDao();
+                colaborador = colaboradorDao.buscarPorIdUsuario(rs.getInt("id_colaborador"));
 
                 Solicitud solicitud = new Solicitud();
                 SolicitudDao solicitudDao = new SolicitudDao();

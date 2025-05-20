@@ -18,6 +18,12 @@ public class Asignacion {
         this.solicitud = solicitud;
     }
 
+    public Asignacion(Colaborador colaborador, Solicitud solicitud) {
+        this.colaborador = colaborador;
+        this.solicitud = solicitud;
+    }
+    
+
     public Asignacion(boolean isCoordiandor, Date fechaAsignacion) {
         this.isCoordiandor = isCoordiandor;
         this.fechaAsignacion = fechaAsignacion;

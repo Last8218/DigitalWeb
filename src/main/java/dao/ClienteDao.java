@@ -29,7 +29,7 @@ public class ClienteDao {
             stmt.setString(5, cliente.getCorreo());
             stmt.setString(6, cliente.getDireccion());
             stmt.setString(7, cliente.getTelefono());
-            stmt.setDate(8, (Date) cliente.getFechaRegistro());
+            stmt.setDate(8, new java.sql.Date(cliente.getFechaRegistro().getTime()));
             stmt.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -85,8 +85,7 @@ public class ClienteDao {
         }
         return null;
     }
-    
-    
+
     public boolean actualizar(Cliente cliente) {
         String sql = "UPDATE cliente SET tipo_cliente = ?, razon_social = ?, tipo_documento = ?, numero_documento = ?, telefono = ?, correo = ?, direccion = ?, fecha_registro = ? WHERE id_cliente = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -97,7 +96,7 @@ public class ClienteDao {
             stmt.setString(5, cliente.getTelefono());
             stmt.setString(6, cliente.getCorreo());
             stmt.setString(7, cliente.getDireccion());
-            stmt.setDate(8, (Date) cliente.getFechaRegistro());
+            stmt.setDate(8, new java.sql.Date(cliente.getFechaRegistro().getTime()));
             stmt.setInt(9, cliente.getIdCliente());
             stmt.executeUpdate();
             return true;
@@ -106,8 +105,7 @@ public class ClienteDao {
             return false;
         }
     }
-    
-    
+
     public boolean eliminar(int id) {
         String sql = "DELETE FROM cliente WHERE id_cliente = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {

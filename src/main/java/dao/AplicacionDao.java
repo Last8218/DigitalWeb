@@ -19,7 +19,7 @@ public class AplicacionDao {
     public AplicacionDao() throws SQLException {
         conn = ConnectionDB.getConexion();
     }
-    
+
     public boolean insertar(Aplicacion aplicacion) {
         String sql = "INSERT INTO aplicacion (nombre) VALUES (?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -31,7 +31,7 @@ public class AplicacionDao {
             return false;
         }
     }
-    
+
     public List<Aplicacion> listarTodos() {
         List<Aplicacion> lista = new ArrayList<>();
         String sql = "SELECT * FROM aplicacion";
@@ -47,7 +47,7 @@ public class AplicacionDao {
         }
         return lista;
     }
-    
+
     public Aplicacion buscarPorId(int id) {
         String sql = "SELECT * FROM aplicacion WHERE id_aplicacion = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -65,7 +65,7 @@ public class AplicacionDao {
         }
         return null;
     }
-    
+
     public boolean actualizar(Aplicacion aplicacion) {
         String sql = "UPDATE aplicacion SET nombre = ? WHERE id_aplicacion = ?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -78,6 +78,5 @@ public class AplicacionDao {
             return false;
         }
     }
-    
 
 }
