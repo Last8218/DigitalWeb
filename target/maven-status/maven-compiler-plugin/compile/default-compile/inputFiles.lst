@@ -6,6 +6,7 @@ C:\Users\luis.sanchez\Documents\DIGITAL\Digital\src\main\java\service\Aplicacion
 C:\Users\luis.sanchez\Documents\DIGITAL\Digital\src\main\java\mapper\AplicacionMapper.java
 C:\Users\luis.sanchez\Documents\DIGITAL\Digital\src\main\java\serviceImpl\AsignacionServiceImpl.java
 C:\Users\luis.sanchez\Documents\DIGITAL\Digital\src\main\java\dto\VentaDTO.java
+C:\Users\luis.sanchez\Documents\DIGITAL\Digital\src\main\java\mapper\UsuarioMapper.java
 C:\Users\luis.sanchez\Documents\DIGITAL\Digital\src\main\java\serviceImpl\ColaboradorServiceImpl.java
 C:\Users\luis.sanchez\Documents\DIGITAL\Digital\src\main\java\com\last\digital\JakartaRestConfiguration.java
 C:\Users\luis.sanchez\Documents\DIGITAL\Digital\src\main\java\Controller\MenuPrincipalController.java
@@ -25,6 +26,7 @@ C:\Users\luis.sanchez\Documents\DIGITAL\Digital\src\main\java\dao\ClienteDao.jav
 C:\Users\luis.sanchez\Documents\DIGITAL\Digital\src\main\java\mapper\VentaMapper.java
 C:\Users\luis.sanchez\Documents\DIGITAL\Digital\src\main\java\service\TipoSolicitudService.java
 C:\Users\luis.sanchez\Documents\DIGITAL\Digital\src\main\java\service\SolicitudService.java
+C:\Users\luis.sanchez\Documents\DIGITAL\Digital\src\main\java\Controller\LoginServlet.java
 C:\Users\luis.sanchez\Documents\DIGITAL\Digital\src\main\java\model\Asignacion.java
 C:\Users\luis.sanchez\Documents\DIGITAL\Digital\src\main\java\model\Colaborador.java
 C:\Users\luis.sanchez\Documents\DIGITAL\Digital\src\main\java\serviceImpl\AtencionServiceImpl.java
@@ -39,6 +41,8 @@ C:\Users\luis.sanchez\Documents\DIGITAL\Digital\src\main\java\dto\AplicacionDTO.
 C:\Users\luis.sanchez\Documents\DIGITAL\Digital\src\main\java\serviceImpl\AplicacionServiceImpl.java
 C:\Users\luis.sanchez\Documents\DIGITAL\Digital\src\main\java\serviceImpl\ClienteServiceImpl.java
 C:\Users\luis.sanchez\Documents\DIGITAL\Digital\src\main\java\mapper\ColaboradorMapper.java
+C:\Users\luis.sanchez\Documents\DIGITAL\Digital\src\main\java\serviceImpl\UsuarioServiceImpl.java
+C:\Users\luis.sanchez\Documents\DIGITAL\Digital\src\main\java\Controller\LogoutServlet.java
 C:\Users\luis.sanchez\Documents\DIGITAL\Digital\src\main\java\dao\AplicacionDao.java
 C:\Users\luis.sanchez\Documents\DIGITAL\Digital\src\main\java\service\ClienteService.java
 C:\Users\luis.sanchez\Documents\DIGITAL\Digital\src\main\java\dao\UsuarioDao.java
@@ -56,7 +60,7 @@ C:\Users\luis.sanchez\Documents\DIGITAL\Digital\src\main\java\mapper\AsignacionM
 C:\Users\luis.sanchez\Documents\DIGITAL\Digital\src\main\java\Controller\ConexionDBController.java
 C:\Users\luis.sanchez\Documents\DIGITAL\Digital\src\main\java\dao\AtencionDao.java
 C:\Users\luis.sanchez\Documents\DIGITAL\Digital\src\main\java\mapper\SolicitudMapper.java
-C:\Users\luis.sanchez\Documents\DIGITAL\Digital\src\main\java\Controller\ClienteController.java
 C:\Users\luis.sanchez\Documents\DIGITAL\Digital\src\main\java\dto\AsignacionDTO.java
 C:\Users\luis.sanchez\Documents\DIGITAL\Digital\src\main\java\mapper\AtencionMapper.java
 C:\Users\luis.sanchez\Documents\DIGITAL\Digital\src\main\java\model\Usuario.java
+C:\Users\luis.sanchez\Documents\DIGITAL\Digital\src\main\java\service\UsuarioService.java
