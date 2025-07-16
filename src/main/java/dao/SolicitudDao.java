@@ -214,6 +214,48 @@ public class SolicitudDao {
         return lista;
     }
 
+    public List<Solicitud> listarPorCliente(int idCliente) {
+        List<Solicitud> lista = new ArrayList<>();
+        String sql = "    SELECT s.* FROM solicitud s"
+                + " JOIN trabajador t ON s.id_trabajador = t.id_usuario"
+                + "   WHERE t.id_cliente = ?";
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, idCliente);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    lista.add(cargarSolicitudDesdeResultSet(rs));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+    
+    public List<Solicitud> listarSolicitudesAsignadasPorColaborador(int idColaborador) {
+        List<Solicitud> lista = new ArrayList<>();
+        
+        String sql = " SELECT s.* FROM colaborador c "
+                + " INNER JOIN asignacion a on c.id_usuario = a.id_colaborador "
+                + " INNER JOIN solicitud s on a.id_solicitud = s.id_solicitud "
+                + " WHERE c.id_usuario = ?";
+
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, idColaborador);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    lista.add(cargarSolicitudDesdeResultSet(rs));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return lista;
+    }
+
     private Solicitud cargarSolicitudDesdeResultSet(ResultSet rs) throws SQLException {
         Solicitud solicitud = new Solicitud();
         solicitud.setIdSolicitud(rs.getInt("id_solicitud"));

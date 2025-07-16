@@ -1,15 +1,14 @@
-
 package model;
 
 import java.util.Date;
 
-
 public class Asignacion {
-    private boolean isCoordiandor ; 
-    private Date fechaAsignacion ; 
-    
-    private Colaborador colaborador ; 
-    private Solicitud solicitud ; 
+
+    private boolean isCoordiandor;
+    private Date fechaAsignacion;
+
+    private Colaborador colaborador;
+    private Solicitud solicitud;
 
     public Asignacion(boolean isCoordiandor, Date fechaAsignacion, Colaborador colaborador, Solicitud solicitud) {
         this.isCoordiandor = isCoordiandor;
@@ -18,15 +17,14 @@ public class Asignacion {
         this.solicitud = solicitud;
     }
 
-    public Asignacion(Colaborador colaborador, Solicitud solicitud) {
-        this.colaborador = colaborador;
-        this.solicitud = solicitud;
-    }
-    
-
     public Asignacion(boolean isCoordiandor, Date fechaAsignacion) {
         this.isCoordiandor = isCoordiandor;
         this.fechaAsignacion = fechaAsignacion;
+    }
+
+    public Asignacion(Colaborador colaborador, Solicitud solicitud) {
+        this.colaborador = colaborador;
+        this.solicitud = solicitud;
     }
 
     public Asignacion() {
@@ -63,10 +61,5 @@ public class Asignacion {
     public void setSolicitud(Solicitud solicitud) {
         this.solicitud = solicitud;
     }
-    
-    
-    
 
-    
-    
 }

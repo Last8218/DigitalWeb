@@ -5,7 +5,7 @@
     <artifactId>Digital</artifactId>
     <version>1.0</version>
     <packaging>war</packaging>
-    <name>Digital-Rev.1.0</name>
+    <name>Digital-1.0</name>
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -35,8 +35,11 @@
             <artifactId>jakarta.servlet.jsp.jstl</artifactId>
             <version>3.0.1</version>
         </dependency>
-
-
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.13.1</version>
+        </dependency>
         
     </dependencies>
     

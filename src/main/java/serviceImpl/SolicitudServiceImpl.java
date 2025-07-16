@@ -106,4 +106,24 @@ public class SolicitudServiceImpl implements SolicitudService {
         }
         return listSolicitudDTO;
     }
+
+    @Override
+    public List<SolicitudDTO> listaSolicitudesPorCliente(int idCliente) {
+        List<Solicitud> listSolicitud = solicitudDao.listarPorCliente(idCliente);
+        List<SolicitudDTO> listSolicitudDTO = new ArrayList<>();
+        for (Solicitud solicitud : listSolicitud) {
+            listSolicitudDTO.add(SolicitudMapper.toDTO(solicitud));
+        }
+        return listSolicitudDTO;
+    }
+
+    @Override
+    public List<SolicitudDTO> listarSolicitudesAsignadasPorColaborador(int idColaborador) {
+        List<Solicitud> listSolicitud = solicitudDao.listarSolicitudesAsignadasPorColaborador(idColaborador);
+        List<SolicitudDTO> listSolicitudDTO = new ArrayList<>();
+        for (Solicitud solicitud : listSolicitud) {
+            listSolicitudDTO.add(SolicitudMapper.toDTO(solicitud));
+        }
+        return listSolicitudDTO;
+    }
 }

@@ -10,12 +10,12 @@ public class Usuario {
     private String nombres;
     private String apellidoPaterno;
     private String apellidoMaterno;
-    private String telefono;
+    private String telefono ; 
     private String correo;
     private Date fechaRegistro;
     private boolean estado;
-    private String username;
-    private String password;
+    private String username ;
+    private String password; 
 
     public Usuario() {
     }
@@ -48,8 +48,8 @@ public class Usuario {
         this.fechaRegistro = fechaRegistro;
         this.estado = estado;
     }
-    
-        public Usuario(int idUsuario, String tipoDocumento, String numeroDocumento, String nombres, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, Date fechaRegistro, boolean estado, String username, String password) {
+
+    public Usuario(int idUsuario, String tipoDocumento, String numeroDocumento, String nombres, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, Date fechaRegistro, boolean estado, String username, String password) {
         this.idUsuario = idUsuario;
         this.tipoDocumento = tipoDocumento;
         this.numeroDocumento = numeroDocumento;
@@ -86,6 +86,7 @@ public class Usuario {
     public void setPassword(String password) {
         this.password = password;
     }
+    
     
 
     public int getIdUsuario() {
@@ -167,5 +168,8 @@ public class Usuario {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+
+    
+    
 
 }

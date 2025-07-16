@@ -14,8 +14,8 @@ public class UsuarioDTO {
     private String correo;
     private Date fechaRegistro;
     private boolean estado;
-    private String username;
-    private String password;
+    private String usename ; 
+    private String password; 
 
     public UsuarioDTO() {
     }
@@ -49,12 +49,12 @@ public class UsuarioDTO {
         this.estado = estado;
     }
 
-    public UsuarioDTO(String username, String password) {
-        this.username = username;
+    public UsuarioDTO(String usename, String password) {
+        this.usename = usename;
         this.password = password;
     }
 
-    public UsuarioDTO(int idUsuario, String tipoDocumento, String numeroDocumento, String nombres, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, Date fechaRegistro, boolean estado, String username, String password) {
+    public UsuarioDTO(int idUsuario, String tipoDocumento, String numeroDocumento, String nombres, String apellidoPaterno, String apellidoMaterno, String telefono, String correo, Date fechaRegistro, boolean estado, String usename, String password) {
         this.idUsuario = idUsuario;
         this.tipoDocumento = tipoDocumento;
         this.numeroDocumento = numeroDocumento;
@@ -65,16 +65,16 @@ public class UsuarioDTO {
         this.correo = correo;
         this.fechaRegistro = fechaRegistro;
         this.estado = estado;
-        this.username = username;
+        this.usename = usename;
         this.password = password;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUsename() {
+        return usename;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsename(String usename) {
+        this.usename = usename;
     }
 
     public String getPassword() {
@@ -84,6 +84,8 @@ public class UsuarioDTO {
     public void setPassword(String password) {
         this.password = password;
     }
+    
+    
 
     public int getIdUsuario() {
         return idUsuario;

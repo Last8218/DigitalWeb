@@ -149,7 +149,7 @@
                     </table>
                 </div>
                 <div class="text-end">
-                    <a href="${pageContext.request.contextPath}/pages/solicitudes.jsp" class="btn btn-primary">Ver todas</a>
+                    <a href="${pageContext.request.contextPath}/solicitudes?accion=listarTodas" class="btn btn-primary">Ver todas</a>
                 </div>
             </div>
         </div>

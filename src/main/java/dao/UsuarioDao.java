@@ -20,9 +20,12 @@ public class UsuarioDao {
     }
 
     public boolean insertar(Usuario usuario) {
-        String sql = "INSERT INTO usuario (tipo_documento, num_documento, nombre, apellido_paterno, apellido_materno, telefono,correo,fecha_registro, estado) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        String sql = "INSERT INTO usuario (tipo_documento, num_documento, nombre, apellido_paterno, apellido_materno, telefono,correo,fecha_registro, estado, contrasenia, username) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            System.out.println("Username en el dao: " + usuario.getUsername());
+            System.out.println("Username en el dao: " + usuario.getPassword());
             stmt.setString(1, usuario.getTipoDocumento());
             stmt.setString(2, usuario.getNumeroDocumento());
             stmt.setString(3, usuario.getNombres());
@@ -32,6 +35,8 @@ public class UsuarioDao {
             stmt.setString(7, usuario.getCorreo());
             stmt.setDate(8, new java.sql.Date(usuario.getFechaRegistro().getTime()));
             stmt.setBoolean(9, usuario.getEstado());
+            stmt.setString(10, usuario.getPassword());
+            stmt.setString(11, usuario.getUsername());
 
             int filas = stmt.executeUpdate();
 
@@ -51,7 +56,7 @@ public class UsuarioDao {
     // ACTUALIZAR USUARIO
     public boolean actualizar(Usuario usuario) {
         String sql = "UPDATE usuario SET tipo_documento=?, num_documento=?, nombre=?, apellido_paterno=?, "
-                + "apellido_materno=?,telefono=?, correo=?, fecha_registro=?, estado=? WHERE id_usuario=?";
+                + "apellido_materno=?,telefono=?, correo=?, fecha_registro=?, estado=?, username=?, contrasenia=? WHERE id_usuario=?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, usuario.getTipoDocumento());
             stmt.setString(2, usuario.getNumeroDocumento());
@@ -62,7 +67,9 @@ public class UsuarioDao {
             stmt.setString(7, usuario.getCorreo());
             stmt.setDate(8, new java.sql.Date(usuario.getFechaRegistro().getTime()));
             stmt.setBoolean(9, usuario.getEstado());
-            stmt.setInt(10, usuario.getIdUsuario());
+            stmt.setString(10, usuario.getUsername());
+            stmt.setString(11, usuario.getPassword());
+            stmt.setInt(12, usuario.getIdUsuario());
 
             return stmt.executeUpdate() > 0;
         } catch (SQLException e) {
@@ -114,6 +121,8 @@ public class UsuarioDao {
                 usuario.setCorreo(rs.getString("correo"));
                 usuario.setFechaRegistro(rs.getDate("fecha_registro"));
                 usuario.setEstado(rs.getBoolean("estado"));
+                usuario.setPassword(rs.getString("contrasenia"));
+                usuario.setUsername(rs.getString("username"));
                 lista.add(usuario);
             }
         } catch (SQLException e) {
@@ -121,10 +130,9 @@ public class UsuarioDao {
         }
         return lista;
     }
-    
-    
+
     // BUSCAR USUARIO POR USERNAME Y CONTRASEÑA 
-    public Usuario buscarUsuarioPorUsernamePassword(String username, String contrasenia){
+    public Usuario buscarUsuarioPorUsernamePassword(String username, String contrasenia) {
         String sql = "SELECT * FROM usuario WHERE username=? AND contrasenia=?";
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, username);
@@ -144,7 +152,7 @@ public class UsuarioDao {
                 usuario.setEstado(rs.getBoolean("estado"));
                 usuario.setUsername(rs.getString("username"));
                 usuario.setPassword(rs.getString("contrasenia"));
-                
+
                 return usuario;
             }
         } catch (SQLException e) {
@@ -152,6 +160,67 @@ public class UsuarioDao {
         }
         return null;
     }
-    
+
+    // LISTAR TODOS LOS USUARIOS QUE SON COLABORADORES
+    public List<Usuario> listarTodosColaboradores() {
+        List<Usuario> lista = new ArrayList<>();
+        String sql = "SELECT * FROM usuario u"
+                + "   INNER JOIN colaborador c "
+                + "   ON u.id_usuario = c.id_usuario"
+                + "   WHERE u.estado ='true'";
+        try (Statement stmt = conn.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                Usuario usuario = new Usuario();
+                usuario.setIdUsuario(rs.getInt("id_usuario"));
+                usuario.setTipoDocumento(rs.getString("tipo_documento"));
+                usuario.setNumeroDocumento(rs.getString("num_documento"));
+                usuario.setNombres(rs.getString("nombre"));
+                usuario.setApellidoPaterno(rs.getString("apellido_paterno"));
+                usuario.setApellidoMaterno(rs.getString("apellido_materno"));
+                usuario.setTelefono(rs.getString("telefono"));
+                usuario.setCorreo(rs.getString("correo"));
+                usuario.setFechaRegistro(rs.getDate("fecha_registro"));
+                usuario.setEstado(rs.getBoolean("estado"));
+                lista.add(usuario);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lista;
+    }
+
+    public Usuario insertarUsuario(Usuario usuario) {
+        String sql = "INSERT INTO usuario (tipo_documento, num_documento, nombre, apellido_paterno, apellido_materno, telefono, correo, fecha_registro, estado, contrasenia, username) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+            stmt.setString(1, usuario.getTipoDocumento());
+            stmt.setString(2, usuario.getNumeroDocumento());
+            stmt.setString(3, usuario.getNombres());
+            stmt.setString(4, usuario.getApellidoPaterno());
+            stmt.setString(5, usuario.getApellidoMaterno());
+            stmt.setString(6, usuario.getTelefono());
+            stmt.setString(7, usuario.getCorreo());
+            stmt.setDate(8, new java.sql.Date(usuario.getFechaRegistro().getTime()));
+            stmt.setBoolean(9, usuario.getEstado());
+            stmt.setString(10, usuario.getPassword());
+            stmt.setString(11, usuario.getUsername());
+
+            int filas = stmt.executeUpdate();
+
+            if (filas > 0) {
+                try (ResultSet rs = stmt.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        usuario.setIdUsuario(rs.getInt(1));  // Asigna el ID generado
+                    }
+                }
+                return usuario; // Devuelve el objeto con ID asignado
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null; // En caso de error o si no se insertó nada
+    }
 
 }

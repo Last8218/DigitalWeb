@@ -43,6 +43,8 @@ public class TrabajadorMapper {
         trabajador.setCorreo(dto.getCorreo());
         trabajador.setFechaRegistro(dto.getFechaRegistro());
         trabajador.setEstado(dto.getEstado());
+        trabajador.setUsername(dto.getUsename());
+        trabajador.setPassword(dto.getPassword());
 
         // Mapeamos Cliente
         if (dto.getCliente() != null) {

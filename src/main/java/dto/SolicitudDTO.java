@@ -1,6 +1,5 @@
 package dto;
 
-
 import java.util.Date;
 
 public class SolicitudDTO {
@@ -20,6 +19,11 @@ public class SolicitudDTO {
 
     public SolicitudDTO(int idSolicitud) {
         this.idSolicitud = idSolicitud;
+    }
+
+    public SolicitudDTO(int idSolicitud, String estado) {
+        this.idSolicitud = idSolicitud;
+        this.estado = estado;
     }
 
     public SolicitudDTO(String motivo, Date fechaRegistro, Date fechaCierre, String estado, AplicacionDTO aplicacion, TipoSolicitudDTO tipoSolicitud, TrabajadorDTO trabajador) {
@@ -42,8 +46,14 @@ public class SolicitudDTO {
         this.tipoSolicitud = tipoSolicitud;
         this.trabajador = trabajador;
     }
-    
-    
+
+    public SolicitudDTO(String motivo, Date fechaRegistro, AplicacionDTO aplicacion, TipoSolicitudDTO tipoSolicitud, TrabajadorDTO trabajador) {
+        this.motivo = motivo;
+        this.fechaRegistro = fechaRegistro;
+        this.aplicacion = aplicacion;
+        this.tipoSolicitud = tipoSolicitud;
+        this.trabajador = trabajador;
+    }
 
     public int getIdSolicitud() {
         return idSolicitud;
@@ -109,5 +119,4 @@ public class SolicitudDTO {
         this.trabajador = trabajador;
     }
 
-    
 }

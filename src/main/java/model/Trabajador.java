@@ -11,5 +11,9 @@ public class Trabajador extends Usuario {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
-    }  
+    }
+    
+    
+    
+    
 }

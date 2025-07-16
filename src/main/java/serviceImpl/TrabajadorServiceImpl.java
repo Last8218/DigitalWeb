@@ -1,6 +1,5 @@
 package serviceImpl;
 
-
 import dao.TrabajadorDao;
 import dto.TrabajadorDTO;
 import java.sql.SQLException;
@@ -49,6 +48,8 @@ public class TrabajadorServiceImpl implements TrabajadorService {
     public boolean insertarTrabajador(TrabajadorDTO trabajadorDto) {
 
         Trabajador trabajador = TrabajadorMapper.toEntity(trabajadorDto);
+        System.out.println("username en la implementación: " + trabajador.getUsername());
+        System.out.println("contraseña en el la implementación: " + trabajador.getPassword());
         boolean rpta = false;
         if (trabajador != null) {
             try {
@@ -62,16 +63,37 @@ public class TrabajadorServiceImpl implements TrabajadorService {
 
     @Override
     public boolean actualizarTrabajador(TrabajadorDTO trabajadorDto) {
-        
+
         Trabajador trabajador = TrabajadorMapper.toEntity(trabajadorDto);
-        
-        if(trabajador != null){
+
+        if (trabajador != null) {
             try {
                 return trabajadorDao.actualizar(trabajador);
             } catch (SQLException ex) {
                 Logger.getLogger(TrabajadorServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-       return true ;
+        return true;
+    }
+
+    @Override
+    public TrabajadorDTO obtenerEmpresaTrabajador(int idUsuario) {
+        Trabajador trabajador = trabajadorDao.buscarPorIdUsuario(idUsuario);
+        TrabajadorDTO trabajadorDto = new TrabajadorDTO();
+        if (trabajador != null) {
+            trabajadorDto = TrabajadorMapper.toDTO(trabajador);
+        }
+
+        return trabajadorDto;
+    }
+
+    @Override
+    public List<TrabajadorDTO> listarTrabajadoresPorCliente(int idCliente) {
+        List<Trabajador> listTrabajador = trabajadorDao.listarTrabajadorPorCliente(idCliente);
+        List<TrabajadorDTO> listTrabajadorDTO = new ArrayList<>();
+        for (Trabajador trabajador : listTrabajador) {
+            listTrabajadorDTO.add(TrabajadorMapper.toDTO(trabajador));
+        }
+        return listTrabajadorDTO;
     }
 }

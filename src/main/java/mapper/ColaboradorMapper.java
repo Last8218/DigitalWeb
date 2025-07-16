@@ -39,6 +39,8 @@ public class ColaboradorMapper {
         trabajador.setFechaRegistro(dto.getFechaRegistro());
         trabajador.setEstado(dto.getEstado());
         trabajador.setTipoColaborador(dto.getTipoColaborador());
+        trabajador.setUsername(dto.getUsename());
+        trabajador.setPassword(dto.getPassword());
         return trabajador;
     }
 }

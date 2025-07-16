@@ -52,6 +52,10 @@ public class Solicitud {
         this.trabajador = trabajador;
     }
     
+    public Solicitud(int idSolicitud, String estado){
+        this.idSolicitud = idSolicitud;
+        this.estado = estado;
+    }
     
 
     public int getIdSolicitud() {
