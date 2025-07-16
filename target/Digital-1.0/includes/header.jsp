@@ -14,14 +14,14 @@
         <!-- Header superior -->
         <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
             <div class="container-fluid">
-                <span class="navbar-brand">Digital SOF</span>
+                <span class="navbar-brand">123Digit@l</span>
                 <button class="btn btn-light btn-sm d-lg-none" id="toggleSidebar">
                     <i class="bi bi-list"></i>
                 </button>
                 <div class="ms-auto d-flex align-items-center">
                     <div class="dropdown">
                         <button class="btn btn-outline-light dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-person-circle me-1"></i> Pedro Miguel
+                            <i class="bi bi-person-circle me-1"></i> LAST
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                             <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Configuración</a></li>
